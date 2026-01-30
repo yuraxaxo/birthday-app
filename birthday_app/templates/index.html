@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>My Little Kitty 🤍</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  background:linear-gradient(120deg,#08080f,#141421,#08080f);
+  background-size:400% 400%;
+  animation:bg 15s ease infinite;
+  color:white;
+  font-family:monospace;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+@keyframes bg{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:0;
+}
+
+.card{
+  z-index:1;
+  max-width:760px;
+  padding:45px;
+  background:rgba(20,20,35,0.88);
+  border-radius:22px;
+  text-align:center;
+  animation:fadeIn 2.5s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(30px)}
+  to{opacity:1; transform:translateY(0)}
+}
+
+.secret, .end{
+  display:none;
+  margin-top:30px;
+  font-size:18px;
+  color:#ffb3c6;
+}
+
+.controls{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  z-index:2;
+}
+
+button{
+  background:#ff4d6d;
+  border:none;
+  padding:10px 16px;
+  border-radius:20px;
+  color:white;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="rain"></canvas>
+
+<div class="card">
+  <h1>Happy 17th Birthday, Shubhi 🤍</h1>
+
+  <p style="line-height:1.8;">
+    <strong>My Little Kitty,</strong><br><br>
+    You are the most beautiful mix of kindness, warmth, and grace.
+    Every time you smile, the world feels lighter,
+    and every time you speak, it feels calmer.<br><br>
+
+    I admire not just how gorgeous you are on the outside,
+    but how gentle, strong, and caring your heart is.<br><br>
+
+    I promise to always respect you, protect your happiness,
+    and stand by you with honesty and love.<br><br>
+
+    Always yours,<br>
+    <strong>Yuvraj Daddy</strong> 🤍
+  </p>
+
+  <div class="secret" id="secret">
+    Some people feel like home…  
+    and you are my safest place 🌙
+  </div>
+
+  <div class="end" id="end">
+    ✨ Screenshot this moment. It’s ours. ✨
+  </div>
+</div>
+
+<div class="controls">
+  <button onclick="toggleMusic()">🎶 Lo-fi</button>
+</div>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_946b6c2b0c.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// Don't close tab
+window.onbeforeunload = () => "Don’t close this tab 🤍";
+
+// Secret messages
+setTimeout(()=>document.getElementById("secret").style.display="block",30000);
+setTimeout(()=>document.getElementById("end").style.display="block",45000);
+
+// Music toggle
+let playing=false;
+function toggleMusic(){
+  const m=document.getElementById("music");
+  playing ? m.pause() : m.play();
+  playing=!playing;
+}
+
+// Rain animation
+const canvas=document.getElementById("rain");
+const ctx=canvas.getContext("2d");
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let drops=[];
+for(let i=0;i<200;i++){
+  drops.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    l:Math.random()*20,
+    s:Math.random()*4+2
+  });
+}
+
+function rain(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.strokeStyle="rgba(255,255,255,0.15)";
+  ctx.lineWidth=1;
+  for(let d of drops){
+    ctx.beginPath();
+    ctx.moveTo(d.x,d.y);
+    ctx.lineTo(d.x,d.y+d.l);
+    ctx.stroke();
+    d.y+=d.s;
+    if(d.y>canvas.height) d.y=0;
+  }
+  requestAnimationFrame(rain);
+}
+rain();
+</script>
+
+</body>
+</html>
