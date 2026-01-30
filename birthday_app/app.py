@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 app.secret_key = "kitty-secret-key"
@@ -24,4 +24,5 @@ def card():
 
 if __name__ == "__main__":
     app.run()
+
 
